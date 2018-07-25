@@ -6,15 +6,16 @@ import Payments from "./Payments";
 class Header extends Component {
   renderContent() {
     const { auth } = this.props;
-    if (!auth) {
+    if (auth === null) {
       return;
     }
-    if (auth && auth.passport && auth.passport.user) {
+    if (auth && auth._id) {
       return (
         <div>
           <li>
             <Payments />
           </li>
+          <li style={{ margin: "0 10px" }}>Credit: {auth.credits}</li>
           <li>
             <a href="/api/logout">Logout</a>
           </li>
