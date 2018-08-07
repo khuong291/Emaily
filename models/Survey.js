@@ -7,11 +7,20 @@ const surveySchema = new Schema({
   body: String,
   subject: String,
   recipients: [RecipientSchema],
-  yes: { type: Number, default: 0 },
-  no: { type: Number, default: 0 },
-  _user: { type: Schema.Types.ObjectId, ref: "User" },
+  yes: {
+    type: Number,
+    default: 0
+  },
+  no: {
+    type: Number,
+    default: 0
+  },
+  _user: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  },
   dateSent: Date,
   lastResponded: Date
 });
 
-mongoose.model("survey", surveySchema);
+mongoose.model("surveys", surveySchema);
