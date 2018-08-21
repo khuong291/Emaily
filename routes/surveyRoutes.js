@@ -20,8 +20,9 @@ module.exports = app => {
       dateSent: Date.now()
     });
 
+    const mailer = new Mailer(survey, surveyTemplate(survey));
+
     try {
-      const mailer = new Mailer(survey, surveyTemplate(survey));
       await mailer.send();
       await survey.save();
       req.user.credits -= 1;
