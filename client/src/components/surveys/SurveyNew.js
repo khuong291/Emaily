@@ -1,22 +1,17 @@
+// SurveyNew shows SurveyForm and SurveyFormReview
 import React, { Component } from "react";
-import { reduxForm } from "redux-form";
 import SurveyForm from "./SurveyForm";
 import SurveyFormReview from "./SurveyFormReview";
+import { reduxForm } from "redux-form";
 
 class SurveyNew extends Component {
-  state = {
-    showFormReview: false
-  };
+  state = { showFormReview: false };
 
   renderContent() {
     if (this.state.showFormReview) {
       return (
         <SurveyFormReview
-          onCancel={() =>
-            this.setState({
-              showFormReview: false
-            })
-          }
+          onCancel={() => this.setState({ showFormReview: false })}
         />
       );
     }
@@ -27,12 +22,14 @@ class SurveyNew extends Component {
       />
     );
   }
-
   render() {
     return <div>{this.renderContent()}</div>;
   }
 }
 
+// Adding reduxForm here assures that the
+// form gets cleared when user presses the
+// cancel button
 export default reduxForm({
   form: "surveyForm"
 })(SurveyNew);

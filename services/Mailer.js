@@ -12,6 +12,7 @@ class Mailer extends helper.Mail {
     this.body = new helper.Content("text/html", content);
     this.recipients = this.formatAddresses(recipients);
 
+    // implemented by helper.Mail
     this.addContent(this.body);
 
     this.addClickTracking();

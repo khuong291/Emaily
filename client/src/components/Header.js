@@ -5,28 +5,29 @@ import Payments from "./Payments";
 
 class Header extends Component {
   renderContent() {
-    const { auth } = this.props;
-    if (auth === null) {
-      return;
-    }
-    if (auth && auth._id) {
-      return (
-        <div>
+    switch (this.props.auth) {
+      case null:
+        return;
+      case false:
+        return (
           <li>
-            <Payments />
+            <a href="/auth/google">Login with Google</a>
           </li>
-          <li style={{ margin: "0 10px" }}>Credit: {auth.credits}</li>
-          <li>
+        );
+
+      default:
+        return [
+          <li key="1">
+            <Payments />
+          </li>,
+          <li key="2" style={{ margin: "0 10px" }}>
+            Credits: {this.props.auth.credits}
+          </li>,
+          <li key="3">
             <a href="/api/logout">Logout</a>
           </li>
-        </div>
-      );
+        ];
     }
-    return (
-      <li>
-        <a href="/auth/google">Login With Google</a>
-      </li>
-    );
   }
 
   render() {
@@ -34,7 +35,7 @@ class Header extends Component {
       <nav>
         <div className="nav-wrapper">
           <Link
-            to={this.props.user ? "/surveys" : "/"}
+            to={this.props.auth ? "/surveys" : "/"}
             className="left brand-logo"
           >
             Emaily
@@ -46,8 +47,11 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = ({ auth }) => {
-  return { auth };
-};
+// gets called with the state object
+// returns an object which sets the prop
+// for the component (Header)
+function mapStateToProps(state) {
+  return { auth: state.auth };
+}
 
 export default connect(mapStateToProps)(Header);

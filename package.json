@@ -1,7 +1,7 @@
 {
-  "name": "server",
+  "name": "emaily",
   "version": "1.0.0",
-  "description": "",
+  "description": "A full stack Email subscription app",
   "main": "index.js",
   "engines": {
     "node": "8.1.1",
@@ -11,21 +11,29 @@
     "start": "node index.js",
     "server": "nodemon index.js",
     "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "dev": "concurrently \"npm run server\" \"npm run client\" \" npm run webhook\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "webhook": "lt -p 5000 -s emailydev1"
   },
-  "author": "",
+  "author": "Ankit Tiwari",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "concurrently": "^3.6.1",
+    "body-parser": "^1.18.2",
+    "concurrently": "^3.5.1",
     "cookie-session": "^2.0.0-beta.3",
-    "express": "^4.16.3",
-    "mongoose": "^5.2.3",
-    "nodemon": "^1.17.5",
+    "express": "^4.16.2",
+    "localtunnel": "^1.8.3",
+    "lodash": "^4.17.4",
+    "mongoose": "^4.13.7",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0",
+    "path-parser": "^3.0.1",
     "sendgrid": "^5.2.3",
-    "stripe": "^6.3.0"
+    "stripe": "^5.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.14.0",
+    "eslint-plugin-react": "^7.5.1",
+    "nodemon": "^1.14.3"
   }
 }

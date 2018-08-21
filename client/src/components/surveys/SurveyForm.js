@@ -1,14 +1,14 @@
+// SurveyForm shows a form for a user to add input
 import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import { Link } from "react-router-dom";
 import SurveyField from "./SurveyField";
-import _ from "lodash";
 import validateEmails from "../../utils/validateEmails";
 import formFields from "./formFields";
 
 class SurveyForm extends Component {
   renderFields() {
-    return _.map(formFields, ({ label, name }) => {
+    return formFields.map(({ label, name }) => {
       return (
         <Field
           key={name}
@@ -20,16 +20,17 @@ class SurveyForm extends Component {
       );
     });
   }
-
   render() {
     return (
       <div>
+        {/* handleSubmit is provided by reduxForm. handleSubmit is called with
+          all the values from the form */}
         <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}>
           {this.renderFields()}
           <Link to="/surveys" className="red btn-flat white-text">
             Cancel
           </Link>
-          <button type="submit" className="teal btn-flat right white-text">
+          <button className="teal btn-flat right white-text">
             Next
             <i className="material-icons right">done</i>
           </button>
@@ -44,17 +45,17 @@ function validate(values) {
 
   errors.recipients = validateEmails(values.recipients || "");
 
-  _.each(formFields, ({ name }) => {
+  for (let { name } of formFields) {
     if (!values[name]) {
-      errors[name] = "You must provide a value";
+      errors[name] = "You must provide a value!";
     }
-  });
+  }
 
   return errors;
 }
 
 export default reduxForm({
-  validate,
-  form: "surveyForm",
-  destroyOnUnmount: false
+  validate, // This function runs every time form changes
+  form: "surveyForm", // This sends the form data to redux store
+  destroyOnUnmount: false // Persistent form values
 })(SurveyForm);
